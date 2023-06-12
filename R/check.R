@@ -82,7 +82,7 @@ check_dataset <- function(d,
             stop("dataset ",suffix,": ",v," contains missing values")
     }
     
-    if (!(d$type %in% c("quant", "cc"))) 
+    if (all(!(d$type %in% c("quant", "cc")))) 
         stop("dataset ", suffix, ": ", "type must be quant or cc")
     
     ## snps should be unique
