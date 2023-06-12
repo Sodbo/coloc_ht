@@ -112,7 +112,7 @@ check_dataset <- function(d,
     ## type of data
     if (! ('type' %in% nd))
         stop("dataset ",suffix,": variable type not set")
-    if(!(d$type %in% c("quant","cc")))
+    if(all(!(d$type %in% c("quant","cc"))))
         stop("dataset ",suffix,": ","type must be quant or cc")
 
     ## no beta/varbeta
@@ -123,7 +123,7 @@ check_dataset <- function(d,
             stop("dataset ",suffix,": ","require p values and MAF if beta, varbeta are unavailable")
         if(any(d$pvalues<=0))
             stop("pvalues should not be negative or exactly 0")
-        if(d$type=="cc" && !("s" %in% nd))
+        if(all(d$type=="cc") && !("s" %in% nd))
             stop("dataset ",suffix,": ","require, s, proportion of samples who are cases, if beta, varbeta are unavailable")
         if (!('N' %in% nd) || is.null(d$N) || any(d$N<=0) )
             stop("dataset ",suffix,": sample size N <=0 or not set")
@@ -137,7 +137,7 @@ check_dataset <- function(d,
         warning("minimum p value is: ",format.pval(min(p)),"\nIf this is what you expected, this is not a problem.\nIf this is not as small as you expected, please check you supplied var(beta) and not sd(beta) for the varbeta argument. If that's not the explanation, please check the 02_data vignette.")
 
     ## sdY
-    if(d$type=="quant" && !("sdY" %in% nd))
+    if(all(d$type=="quant") && !("sdY" %in% nd))
         if(!("MAF" %in% nd && "N" %in% nd ))
             stop("dataset ",suffix,": ","must give sdY for type quant, or, if sdY unknown, MAF and N so it can be estimated")
 
