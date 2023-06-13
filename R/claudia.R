@@ -195,10 +195,10 @@ process.dataset <- function(d, suffix) {
         ## if(length(d$snp) != length(d$beta))
         ##   stop("dataset ",suffix,": ","Length of snp names and beta vectors must match")
         
-        if(d$type=="quant" && !('sdY' %in% nd)) 
+        if(all(d$type=="quant") && !('sdY' %in% nd)) 
             d$sdY <- sdY.est(d$varbeta, d$MAF, d$N)
         df <- approx.bf.estimates(z=d$beta/sqrt(d$varbeta),
-                                  V=d$varbeta, type=d$type, suffix=suffix, sdY=d$sdY)
+                                  V=d$varbeta, type=unique(d$type), suffix=suffix, sdY=d$sdY)
         df$snp <- as.character(d$snp)
         if("position" %in% nd)
             df <- cbind(df,position=d$position)
