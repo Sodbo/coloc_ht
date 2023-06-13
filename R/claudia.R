@@ -218,7 +218,7 @@ process.dataset <- function(d, suffix) {
         colnames(df)[-snp.index] <- paste(colnames(df)[-snp.index], suffix, sep=".")
         ## keep <- which(df$MAF>0 & df$pvalues > 0) # all p values and MAF > 0
         ## df <- df[keep,]
-        abf <- approx.bf.p(p=df$pvalues, f=df$MAF, type=d$type, N=df$N, s=d$s, suffix=suffix)
+        abf <- approx.bf.p(p=df$pvalues, f=df$MAF, type=unique(d$type), N=df$N, s=d$s, suffix=suffix)
         df <- cbind(df, abf)
         if("position" %in% nd)
             df <- cbind(df,position=d$position)
